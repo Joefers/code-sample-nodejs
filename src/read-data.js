@@ -32,7 +32,8 @@ function getQueryParams(inputObject)
     var params =
     {
       TableName : tableName,
-      Key: {
+      Key:
+      {
         "schoolId": inputObject.schoolId,
         "studentId": inputObject.studentId
       }
@@ -151,7 +152,7 @@ exports.handler = async (event) => {
              .catch((err) =>
              {
                var errMsg = "Error while querying from DB:" + err;
-                console.log(errMsg);
+               console.log(errMsg);
                throw new Error(errMsg);
              });
       }
