@@ -86,65 +86,65 @@ describe('the code sample', function () {
 
   it('validates that a query object with schoolId and studentId returns valid query parameters', function()
   {
-	const testSchoolId = "SomeSchoolId";
-	const testStudentId = "SomeStudentId";
+    const testSchoolId = "SomeSchoolId";
+    const testStudentId = "SomeStudentId";
 
-	const query = {
+    const query = {
       schoolId: testSchoolId,
-	  studentId: testStudentId
+      studentId: testStudentId
     };
 
-	var params;
+    var params;
 
-	assert.doesNotThrow(() =>
-	{
+    assert.doesNotThrow(() =>
+    {
       params = readData.getQueryParams(query);
-	}, Error);
-	assert.isOk(params);
-	assert.hasAllKeys(params, ["TableName", "Key"]);
-	assert.hasAllKeys(params.Key, ["schoolId", "studentId"]);
-	assert.equal(params.Key.schoolId, testSchoolId, "Expected returned query param schoolId to match the one passed in.");
-	assert.equal(params.Key.studentId, testStudentId, "Expected returned query param studentId to match the one passed in.");
+    }, Error);
+    assert.isOk(params);
+    assert.hasAllKeys(params, ["TableName", "Key"]);
+    assert.hasAllKeys(params.Key, ["schoolId", "studentId"]);
+    assert.equal(params.Key.schoolId, testSchoolId, "Expected returned query param schoolId to match the one passed in.");
+    assert.equal(params.Key.studentId, testStudentId, "Expected returned query param studentId to match the one passed in.");
   });
 
   it('validates that a query object with studentLastName returns valid query parameters', function()
   {
-	const testStudentLastName = "SomeLastName";
+    const testStudentLastName = "SomeLastName";
 
-	const query = {
+    const query = {
       studentLastName: testStudentLastName
     };
 
-	var params;
+    var params;
 
-	assert.doesNotThrow(() =>
-	{
+    assert.doesNotThrow(() =>
+    {
       params = readData.getQueryParams(query);
-	}, Error);
-	assert.isOk(params);
-	assert.hasAllKeys(params, ["TableName", "Limit", "IndexName", "KeyConditionExpression", "ExpressionAttributeValues"]);
-	assert.hasAllKeys(params.ExpressionAttributeValues, [":studentLastName"]);
-	assert.equal(params.ExpressionAttributeValues[":studentLastName"], testStudentLastName, "Expected returned query param studentLastName to match the one passed in.");
+    }, Error);
+    assert.isOk(params);
+    assert.hasAllKeys(params, ["TableName", "Limit", "IndexName", "KeyConditionExpression", "ExpressionAttributeValues"]);
+    assert.hasAllKeys(params.ExpressionAttributeValues, [":studentLastName"]);
+    assert.equal(params.ExpressionAttributeValues[":studentLastName"], testStudentLastName, "Expected returned query param studentLastName to match the one passed in.");
   });
 
   it('validates that a query object with schoolId returns valid query parameters', function()
   {
-	const testSchoolId = "SomeSchoolId";
+    const testSchoolId = "SomeSchoolId";
 
-	const query = {
+    const query = {
       schoolId: testSchoolId
     };
 
-	var params;
+    var params;
 
-	assert.doesNotThrow(() =>
-	{
+    assert.doesNotThrow(() =>
+    {
       params = readData.getQueryParams(query);
-	}, Error);
-	assert.isOk(params);
-	assert.hasAllKeys(params, ["TableName", "Limit", "KeyConditionExpression", "ExpressionAttributeValues"]);
-	assert.hasAllKeys(params.ExpressionAttributeValues, [":schoolId"]);
-	assert.equal(params.ExpressionAttributeValues[":schoolId"], testSchoolId, "Expected returned query param schoolId to match the one passed in.");
+    }, Error);
+    assert.isOk(params);
+    assert.hasAllKeys(params, ["TableName", "Limit", "KeyConditionExpression", "ExpressionAttributeValues"]);
+    assert.hasAllKeys(params.ExpressionAttributeValues, [":schoolId"]);
+    assert.equal(params.ExpressionAttributeValues[":schoolId"], testSchoolId, "Expected returned query param schoolId to match the one passed in.");
   });
 
   it('throws an Error when attempting to query using an invalid query object', async function () {
@@ -152,15 +152,15 @@ describe('the code sample', function () {
       studentFirstName: "BadQueryObject",
     };
 
-	assert.throws(() =>
-	{
+    assert.throws(() =>
+    {
       readData.getQueryParams(query);
-	}, Error, "Query not supported! Your query object should supply: (schoolId, studentId) OR (studentLastName) OR (schoolId)"); //Verify the error message is as expected.
+    }, Error, "Query not supported! Your query object should supply: (schoolId, studentId) OR (studentLastName) OR (schoolId)"); //Verify the error message is as expected.
   });
 
   it('validates that all properties exist on input object', function()
   {
-	const schoolId = uuid();
+    const schoolId = uuid();
     const studentId = uuid();
 
     const schoolStudent = {
@@ -172,17 +172,17 @@ describe('the code sample', function () {
       studentGrade: '12',
     };
 
-	var allValidProperties = ["schoolId", "schoolName", "studentId", "studentFirstName", "studentLastName", "studentGrade"];
+    var allValidProperties = ["schoolId", "schoolName", "studentId", "studentFirstName", "studentLastName", "studentGrade"];
 
     assert.doesNotThrow(() =>
-	{
-	  writeData.verifyAllFieldsExist(schoolStudent, allValidProperties);
-	}, Error);
+    {
+      writeData.verifyAllFieldsExist(schoolStudent, allValidProperties);
+    }, Error);
   });
 
   it('throws an Error when the input object has missing fields', function()
   {
-	const schoolId = uuid();
+    const schoolId = uuid();
     const studentId = uuid();
 
     //Test case should have missing fields for studentLastName, and studentGrade.
@@ -193,17 +193,17 @@ describe('the code sample', function () {
       studentFirstName: 'Aaron'
     };
 
-	var allValidProperties = ["schoolId", "schoolName", "studentId", "studentFirstName", "studentLastName", "studentGrade"];
+    var allValidProperties = ["schoolId", "schoolName", "studentId", "studentFirstName", "studentLastName", "studentGrade"];
 
     assert.throws(() =>
-	{
-	  writeData.verifyAllFieldsExist(schoolStudent, allValidProperties);
-	}, Error, "studentLastName,studentGrade"); //Verify the missing fields are captured in the thrown Error.
+    {
+      writeData.verifyAllFieldsExist(schoolStudent, allValidProperties);
+    }, Error, "studentLastName,studentGrade"); //Verify the missing fields are captured in the thrown Error.
   });
 
   it('validates that all properties on input object are of expected types', function()
   {
-	const schoolId = uuid();
+    const schoolId = uuid();
     const studentId = uuid();
 
     const schoolStudent = {
@@ -215,18 +215,18 @@ describe('the code sample', function () {
       studentGrade: '12',
     };
 
-	var uuidProperties = ["schoolId", "studentId"];
+    var uuidProperties = ["schoolId", "studentId"];
 
     assert.doesNotThrow(() =>
-	{
-	  writeData.verifyAllFieldsAreOfExpectedTypes(schoolStudent, uuidProperties);
-	}, Error);
+    {
+      writeData.verifyAllFieldsAreOfExpectedTypes(schoolStudent, uuidProperties);
+    }, Error);
   });
 
   it('throws an Error when input object has UUID fields that are not actually valid UUIDs', function()
   {
-	//Intentionally malform UUID values for this check.
-	const schoolId = uuid() + "37";
+    //Intentionally malform UUID values for this check.
+    const schoolId = uuid() + "37";
     const studentId = "Hey, this is a lousy UUID! Someone oughta validate this!";
 
     const schoolStudent = {
@@ -238,17 +238,17 @@ describe('the code sample', function () {
       studentGrade: '12',
     };
 
-	var uuidProperties = ["schoolId", "studentId"];
+    var uuidProperties = ["schoolId", "studentId"];
 
     assert.throws(() =>
-	{
-	  writeData.verifyAllFieldsAreOfExpectedTypes(schoolStudent, uuidProperties);
-	}, Error, "schoolId [UUID],studentId [UUID]"); //Verify the bad UUID fields are captured in the thrown Error.
+    {
+      writeData.verifyAllFieldsAreOfExpectedTypes(schoolStudent, uuidProperties);
+    }, Error, "schoolId [UUID],studentId [UUID]"); //Verify the bad UUID fields are captured in the thrown Error.
   });
 
   it('throws an Error when input object has string fields that are not actually valid strings', function()
   {
-	const schoolId = uuid();
+    const schoolId = uuid();
     const studentId = uuid();
 
     //Intentionally supply non-string values into our string fields for this check.
@@ -261,17 +261,17 @@ describe('the code sample', function () {
       studentGrade: null,
     };
 
-	var uuidProperties = ["schoolId", "studentId"];
+    var uuidProperties = ["schoolId", "studentId"];
 
     assert.throws(() =>
-	{
-	  writeData.verifyAllFieldsAreOfExpectedTypes(schoolStudent, uuidProperties);
-	}, Error, "schoolName [string],studentFirstName [string],studentLastName [string],studentGrade [string]"); //Verify the bad string fields are captured in the thrown Error.
+    {
+      writeData.verifyAllFieldsAreOfExpectedTypes(schoolStudent, uuidProperties);
+    }, Error, "schoolName [string],studentFirstName [string],studentLastName [string],studentGrade [string]"); //Verify the bad string fields are captured in the thrown Error.
   });
 
   it('validates that all properties on input object are non-empty', function()
   {
-	const schoolId = uuid();
+    const schoolId = uuid();
     const studentId = uuid();
 
     const schoolStudent = {
@@ -284,14 +284,14 @@ describe('the code sample', function () {
     };
 
     assert.doesNotThrow(() =>
-	{
-	  writeData.verifyAllFieldsAreNonEmpty(schoolStudent);
-	}, Error);
+    {
+      writeData.verifyAllFieldsAreNonEmpty(schoolStudent);
+    }, Error);
   });
 
   it('throws an Error when input object has fields with empty or undefined values', function()
   {
-	const schoolId = uuid();
+    const schoolId = uuid();
     const studentId = uuid();
 
     //Intentionally supply empty/undefined values for this check.
@@ -305,9 +305,9 @@ describe('the code sample', function () {
     };
 
     assert.throws(() =>
-	{
-	  writeData.verifyAllFieldsAreNonEmpty(schoolStudent);
-	}, Error, "studentFirstName,studentLastName,studentGrade"); //Verify the undefined/empty fields are captured in the thrown Error.
+    {
+      writeData.verifyAllFieldsAreNonEmpty(schoolStudent);
+    }, Error, "studentFirstName,studentLastName,studentGrade"); //Verify the undefined/empty fields are captured in the thrown Error.
   });
 
   // This section starts the local DynamoDB database

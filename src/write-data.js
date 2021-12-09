@@ -35,18 +35,18 @@ function verifyAllFieldsExist(inputObject, allProperties)
   for(property of allProperties)
   {
     //If property is missing in input object, add it to list of missing properties.
-	if(!inputObject.hasOwnProperty(property))
-	{
-	  missingProperties.push(property);
-	}
+    if(!inputObject.hasOwnProperty(property))
+    {
+      missingProperties.push(property);
+    }
   }
 
   //If any fields are missing, log these and throw an error.
   if(missingProperties.length > 0)
   {
-	var errMsg = "Input object is missing the following fields: " + missingProperties;
-	console.log(errMsg);
-	throw new Error(errMsg);
+    var errMsg = "Input object is missing the following fields: " + missingProperties;
+    console.log(errMsg);
+    throw new Error(errMsg);
   }
 
   console.log("All required properties found in input object.");
@@ -64,32 +64,32 @@ function verifyAllFieldsAreOfExpectedTypes(inputObject, uuidFields)
   for(property in inputObject)
   {
     //Perform check against UUID fields.
-	if(uuidFields.includes(property))
-	{
-	  const uuidRegexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
-	  var uuidValid = uuidRegexExp.test(inputObject[property]);
+    if(uuidFields.includes(property))
+    {
+      const uuidRegexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+      var uuidValid = uuidRegexExp.test(inputObject[property]);
 
-	  //If UUID is not valid, log it.
-	  if(!uuidValid)
-	  {
-	    invalidTypeProperties.push(property + " [UUID]");
-	  }
-	}
-	//Perform check against string fields.
-	else
-	{
-	  if(typeof inputObject[property] !== "string")
-	  {
-	    invalidTypeProperties.push(property + " [string]");
-	  }
-	}
+      //If UUID is not valid, log it.
+      if(!uuidValid)
+      {
+        invalidTypeProperties.push(property + " [UUID]");
+      }
+    }
+    //Perform check against string fields.
+    else
+    {
+      if(typeof inputObject[property] !== "string")
+      {
+        invalidTypeProperties.push(property + " [string]");
+      }
+    }
   }
 
   if(invalidTypeProperties.length > 0)
   {
     var errMsg = "Input object has incorrect types for the following fields: " + invalidTypeProperties;
-	console.log(errMsg);
-	throw new Error(errMsg);
+    console.log(errMsg);
+    throw new Error(errMsg);
   }
 
   console.log("All fields on input object have valid types.");
@@ -106,16 +106,16 @@ function verifyAllFieldsAreNonEmpty(inputObject)
   for(property in inputObject)
   {
     if(inputObject[property] === undefined || inputObject[property].length <= 0)
-	{
-	  emptyFields.push(property);
-	}
+    {
+      emptyFields.push(property);
+    }
   }
 
   if(emptyFields.length > 0)
   {
-	var errMsg = "Empty fields found in input object on the following fields: " + emptyFields;
-	console.log(errMsg);
-	throw new Error(errMsg);
+    var errMsg = "Empty fields found in input object on the following fields: " + emptyFields;
+    console.log(errMsg);
+    throw new Error(errMsg);
   }
 
   console.log("No empty fields found in input object.");
@@ -142,7 +142,7 @@ exports.handler = async (event) => {
 
   try
   {
-	verifyAllFieldsAreOfExpectedTypes(event, uuidFields);
+    verifyAllFieldsAreOfExpectedTypes(event, uuidFields);
   }
   catch(err)
   {
@@ -165,10 +165,10 @@ exports.handler = async (event) => {
   {
     TableName : tableName,
     Item:
-	{
+    {
       'schoolId': event.schoolId,
       'studentId': event.studentId,
-	  'schoolName': event.schoolName,
+      'schoolName': event.schoolName,
       'studentFirstName': event.studentFirstName,
       'studentLastName': event.studentLastName,
       'studentGrade': event.studentGrade
@@ -179,12 +179,12 @@ exports.handler = async (event) => {
 
   await dynamodb.put(params).promise()
         .then((data) =>
-		{
-		  console.log("Data successfully written to DB.");
-		})
-		.catch((err) =>
-		{
-		  console.log("Error while writing to DB:");
-		  console.log(err);
-		});
+        {
+          console.log("Data successfully written to DB.");
+        })
+        .catch((err) =>
+        {
+          console.log("Error while writing to DB:");
+          console.log(err);
+        });
 };
