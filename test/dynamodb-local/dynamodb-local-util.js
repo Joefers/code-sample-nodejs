@@ -7,8 +7,17 @@ const dynamoOptions = {
   endpoint: new AWS.Endpoint(`http://localhost:${port}`),
   accessKeyId: 'fakeKeyId',
   secretAccessKey: 'fakeSecretAccessKey',
-  region: 'us-west-2'
+  region: 'us-west-2',
+  maxRetries: 5,
+  httpOptions: 
+  {
+    timeout: 5000	  
+  }
 };
+
+//Update AWS config with credentials, or async/await calls won't work on local DynamoDB.
+AWS.config.update({ region: dynamoOptions.region, accessKeyId: dynamoOptions.accessKeyId, secretAccessKey: dynamoOptions.secretAccessKey});
+
 const db = new AWS.DynamoDB(dynamoOptions);
 
 const spawn = require('child_process').spawn;
